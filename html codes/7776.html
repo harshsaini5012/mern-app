@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+      }
+      #bulb {
+        height: 200px;
+        width: 200px;
+        border: 2px solid black;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bulb"></div>
+    <button>On</button>
+
+    <script>
+      const bulb = document.querySelector("#bulb");
+      const btn = document.querySelector("button");
+
+      let toggle = 0;
+      // boolean => true or false , 1 or 0
+      btn.addEventListener("click", function () {
+        if (toggle === 0) {
+          bulb.style.backgroundColor = "Yellow";
+          btn.textContent = "Off";
+          toggle = 1;
+        } else {
+          bulb.style.backgroundColor = "Black";
+          btn.textContent = "On";
+          toggle = 0;
+        }
+      });
+    </script>
+  </body>
+</html>
