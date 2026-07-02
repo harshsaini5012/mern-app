@@ -11,8 +11,8 @@ function Register() {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:5001/api/auth/register",
-        form,
+        "https://mern-backend-3on1.onrender.com/api/auth/register",
+        form
       );
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));

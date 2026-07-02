@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API = "http://localhost:5001/api/users";
+const API = "https://mern-backend-3on1.onrender.com/api/users";
 
 function Dashboard() {
   const [users, setUsers] = useState([]);

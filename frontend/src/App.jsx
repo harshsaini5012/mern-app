@@ -124,7 +124,7 @@
 // import { useState, useEffect } from "react";
 // import axios from "axios";
 
-// const API = "http://localhost:5001/api/users";
+// const API = "https://mern-backend-3on1.onrender.com/api/users";
 
 // function App() {
 //   const [users, setUsers] = useState([]);
@@ -197,7 +197,7 @@
 // import { useState } from "react";
 // import axios from "axios";
 
-// const API = "http://localhost:5001/api/auth";
+// const API = "https://mern-backend-3on1.onrender.com/api/auth";
 
 // function App() {
 //   const [isLogin, setIsLogin] = useState(true);
@@ -311,7 +311,7 @@
 // import { useState, useEffect } from "react";
 // import axios from "axios";
 
-// const API = "http://localhost:5001/api/users";
+// const API = "https://mern-backend-3on1.onrender.com/api/users";
 
 // function App() {
 //   const [users, setUsers] = useState([]);
@@ -453,7 +453,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API = "http://localhost:5001/api/users";
+const API = "https://mern-backend-3on1.onrender.com/api/users";
 
 function App() {
   const [users, setUsers] = useState([]);

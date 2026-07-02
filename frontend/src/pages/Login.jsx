@@ -11,7 +11,7 @@ function Login() {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:5001/api/auth/login",
+        "https://mern-backend-3on1.onrender.com/api/auth/login",
         form,
       );
       localStorage.setItem("token", data.token);
