@@ -1201,7 +1201,7 @@ function Dashboard() {
         setMessage("User updated!");
         setEditId(null);
       } else {
-        await axios.post(API, form);
+        await axios.post(API, form, authHeaders);
         setMessage("User added!");
       }
       setForm({ name: "", email: "", password: "" });
@@ -1213,9 +1213,13 @@ function Dashboard() {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this user?")) return;
-    await axios.delete(`${API}/${id}`, authHeaders);
-    setMessage("User deleted!");
-    fetchUsers();
+    try {
+      await axios.delete(`${API}/${id}`, authHeaders);
+      setMessage("User deleted!");
+      fetchUsers();
+    } catch (err) {
+      setMessage(err.response?.data?.message || "Delete failed");
+    }
   };
 
   const handleEdit = (u) => {

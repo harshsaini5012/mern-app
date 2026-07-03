@@ -74,7 +74,10 @@ export const register = async (req, res) => {
       { expiresIn: "7d" },
     );
 
-    res.status(201).json({ user, token });
+    // Never return the password hash
+    const userObj = user.toObject();
+    delete userObj.password;
+    res.status(201).json({ user: userObj, token });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -96,7 +99,10 @@ export const login = async (req, res) => {
       { expiresIn: "7d" },
     );
 
-    res.status(200).json({ user, token });
+    // Never return the password hash
+    const userObj = user.toObject();
+    delete userObj.password;
+    res.status(200).json({ user: userObj, token });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

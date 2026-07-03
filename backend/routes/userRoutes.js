@@ -123,17 +123,22 @@ router.put("/:id", protect, updateUser);
 router.put("/:id/change-password", protect, changePassword);
 
 // Upload profile photo
-router.put("/:id/upload-photo", upload.single("photo"), async (req, res) => {
-  try {
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      { photo: req.file.path },
-      { new: true },
-    );
-    res.status(200).json({ photo: user.photo });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+router.put(
+  "/:id/upload-photo",
+  protect,
+  upload.single("photo"),
+  async (req, res) => {
+    try {
+      const user = await User.findByIdAndUpdate(
+        req.params.id,
+        { photo: req.file.path },
+        { new: true },
+      ).select("-password");
+      res.status(200).json({ photo: user.photo });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+);
 
 export default router;
