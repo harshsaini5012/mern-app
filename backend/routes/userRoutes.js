@@ -24,12 +24,31 @@
 
 // export default router;
 
+// import express from "express";
+// import {
+//   getUsers,
+//   createUser,
+//   deleteUser,
+//   updateUser,
+// } from "../controllers/userControler.js";
+// import { protect, adminOnly } from "../middleware/authMiddleware.js";
+
+// const router = express.Router();
+
+// router.get("/", protect, adminOnly, getUsers);
+// router.post("/", createUser);
+// router.delete("/:id", protect, adminOnly, deleteUser);
+// router.put("/:id", protect, updateUser);
+
+// export default router;
+
 import express from "express";
 import {
   getUsers,
   createUser,
   deleteUser,
   updateUser,
+  changePassword,
 } from "../controllers/userControler.js";
 import { protect, adminOnly } from "../middleware/authMiddleware.js";
 
@@ -39,5 +58,6 @@ router.get("/", protect, adminOnly, getUsers);
 router.post("/", createUser);
 router.delete("/:id", protect, adminOnly, deleteUser);
 router.put("/:id", protect, updateUser);
+router.put("/:id/change-password", protect, changePassword);
 
 export default router;

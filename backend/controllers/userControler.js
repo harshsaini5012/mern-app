@@ -39,6 +39,7 @@
 //   }
 // };
 import User from "../models/User.js";
+import bcrypt from "bcryptjs";
 
 // Get all users
 export const getUsers = async (req, res) => {
@@ -78,6 +79,25 @@ export const updateUser = async (req, res) => {
       new: true,
     });
     res.status(200).json(updated);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+// Change password
+export const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch)
+      return res.status(400).json({ message: "Current password is wrong" });
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+
+    res.status(200).json({ message: "Password changed successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
