@@ -796,6 +796,28 @@ function Dashboard() {
     }
   };
 
+  const handlePhotoUpload = async (e) => {
+    const formData = new FormData();
+    formData.append("photo", e.target.files[0]);
+    try {
+      const { data } = await axios.put(
+        `${API}/${user._id}/upload-photo`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+      const updatedUser = { ...user, photo: data.photo };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      window.location.reload();
+    } catch {
+      alert("Upload failed");
+    }
+  };
+
   useEffect(() => {
     if (!token) navigate("/");
     fetchUsers();
@@ -942,9 +964,30 @@ function Dashboard() {
           <div className={`${card} rounded-2xl shadow p-6`}>
             <h2 className="text-lg font-semibold mb-4">👤 Your Profile</h2>
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center text-white text-2xl font-bold">
-                {user.name?.charAt(0).toUpperCase()}
+              {/* Profile Photo */}
+              <div className="relative">
+                {user.photo ? (
+                  <img
+                    src={user.photo}
+                    alt="profile"
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center text-white text-2xl font-bold">
+                    {user.name?.charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <label className="absolute bottom-0 right-0 bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center cursor-pointer text-xs hover:bg-blue-700">
+                  +
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handlePhotoUpload}
+                  />
+                </label>
               </div>
+
               <div>
                 <p className="text-xl font-bold">{user.name}</p>
                 <p className="text-gray-500">{user.email}</p>
@@ -1039,9 +1082,17 @@ function Dashboard() {
                   className={`flex items-center justify-between border rounded-xl px-4 py-3 ${darkMode ? "bg-gray-700 border-gray-600" : "bg-gray-50 border-gray-200"}`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
-                      {u.name?.charAt(0).toUpperCase()}
-                    </div>
+                    {u.photo ? (
+                      <img
+                        src={u.photo}
+                        alt="profile"
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                        {u.name?.charAt(0).toUpperCase()}
+                      </div>
+                    )}
                     <div>
                       <p className="font-semibold">{u.name}</p>
                       <p className="text-sm text-gray-500">{u.email}</p>
