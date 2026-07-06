@@ -11,6 +11,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import "./index.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -26,6 +27,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
+      <SpeedInsights />
     </BrowserRouter>
   </StrictMode>,
 );
